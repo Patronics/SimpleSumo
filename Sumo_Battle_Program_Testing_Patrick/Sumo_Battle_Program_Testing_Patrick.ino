@@ -203,7 +203,7 @@ RightEdgeState = analogRead(EdgeRightPin);
 LeftEdgeState = analogRead(EdgeLeftPin);
 UltraSense();
  
-if (BackEdgeState > EdgeSensitivity || RightEdgeState > EdgeSensitivity || LeftEdgeState > EdgeSensitivity){
+if (BackEdgeState < EdgeSensitivity || RightEdgeState < EdgeSensitivity || LeftEdgeState < EdgeSensitivity){
 	EdgeSensed = true; //Edge positively sensed
 	} else {
 			EdgeSensed = false;
