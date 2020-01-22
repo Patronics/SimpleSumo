@@ -150,25 +150,25 @@ void loop(){
    //AccessoryLoop(); //A simple loop written to activate the accessory servos for display purposes.
 	CheckSensors(); //Review all input sensors for fresh data
 	if (EdgeSensed == true){ //If Edge is Detected
-		//Buzz();
-		StayInRing(); // Move & reorient the robot away from ring edge
-	}else if (ButtonSensed == true){  //Enemy Detected via Button sensor
 		Buzz();
-		Attack(); // Brief charge forward
+		//StayInRing(); // Move & reorient the robot away from ring edge
+	}else if (ButtonSensed == true){  //Enemy Detected via Button sensor
+		//Buzz();
+		//Attack(); // Brief charge forward
 	}else if (UltraSensed == true){  //Enemy Detected via Ultrasonic sensor
-                Buzz();
-				Persue(); // Reorient the robot with intent to attack
-                StuckCounter = StuckCounter + 1; //Stuck counter is to prevent stalemate when 2 robots find each other.
-                  if (StuckCounter >random(20,40)){
-                    if (random(1,2)<2){ 
-                      MoveBackwardRight();
-                    }else{MoveBackwardLeft();}
-                    delay(random(50,500));
-                    MoveRandom();
-                    delay(random(1,100));
-                    StuckCounter = 0;
-                  }
-        }else Search();  // Move in roving pattern seeking enemy
+    //            Buzz();
+			//	Persue(); // Reorient the robot with intent to attack
+     //           StuckCounter = StuckCounter + 1; //Stuck counter is to prevent stalemate when 2 robots find each other.
+      //            if (StuckCounter >random(20,40)){
+      //              if (random(1,2)<2){ 
+       //               MoveBackwardRight();
+       //             }else{MoveBackwardLeft();}
+       //             delay(random(50,500));
+       //             MoveRandom();
+        //            delay(random(1,100));
+         //           StuckCounter = 0;
+        //          }
+       }//else Search();  // Move in roving pattern seeking enemy
 
 }
 
@@ -203,7 +203,7 @@ RightEdgeState = analogRead(EdgeRightPin);
 LeftEdgeState = analogRead(EdgeLeftPin);
 UltraSense();
  
-if (BackEdgeState > EdgeSensitivity || RightEdgeState > EdgeSensitivity || LeftEdgeState > EdgeSensitivity){
+if (BackEdgeState < EdgeSensitivity || RightEdgeState < EdgeSensitivity || LeftEdgeState < EdgeSensitivity){
 	EdgeSensed = true; //Edge positively sensed
 	} else {
 			EdgeSensed = false;
