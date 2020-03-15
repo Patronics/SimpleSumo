@@ -19,3 +19,6 @@ Features Removed:
  // This program operates the SimpleSumo robot in 'Flee Mode' so that it will run from walls as sensed with the ultrasonic & button sensors. If captured (as sensed by the IR signal from being lifted off the ground) the robot will stop rotating its wheels and beep.	
    
    This is a program segment intended to be used in conjunction with the "Sumo_Battle_Program". To make this work copy all of the code replace the entire 'SETUP SECTION' and 'LOOP SECTION' in the "Sumo_Battle_Program".
+
+**ForwardLineDetect**
+// This addition is simply to drive forward, detect the line, backup and turn around and drive forward again.  In the folder is also a state table in powerpoint. An image is [here](./ForwardLineDetect/ForwardLineDetectStateFlowChart.png).  This helps a new user to get started with basic use of the servos and sensors.
