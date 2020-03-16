@@ -5,6 +5,10 @@ The SimpleSumo is a design from Engineer Mike "MechEngineerMike" at https://engi
 
 The instructable that he created that we're using is at: https://www.instructables.com/id/SimpleSumo-Educational-Fighting-Robots/
 
+This robot can be built for approximately $30 for individual parts. Many of the parts though are only available in multi-packs which will present an increased cost burden for builders.
+
+Here is the Bill of Materials that we used for this project: https://docs.google.com/spreadsheets/d/1fTZmPjsJM4xbr6QlCq4lyasEEuuKHJx6P3JwXfj3H0w
+
 Summary of programs:
 
 **Sumo_Battle_Program**
