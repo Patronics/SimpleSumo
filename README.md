@@ -1,6 +1,10 @@
 # SimpleSumo
 Arduino code for the SimpleSumo robot lineup.
 
+The SimpleSumo is a design from Engineer Mike "MechEngineerMike" at (https://engineerdog.com/)[https://engineerdog.com/]
+
+The instructable that he created that we're using is at: (https://www.instructables.com/id/SimpleSumo-Educational-Fighting-Robots/)[https://www.instructables.com/id/SimpleSumo-Educational-Fighting-Robots/]
+
 Summary of programs:
 
 **Sumo_Battle_Program**
