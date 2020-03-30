@@ -141,22 +141,21 @@ int StuckCounter = 0;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void loop(){
-   // SitStill(); //This is a function written for troubleshooting purposes
-
-  PrintSerial(); //Uncomment this only for troubleshooting. It will slow down your robots reaction time during a battle!
-   //AccessoryLoop(); //A simple loop written to activate the accessory servos for display purposes.
+  // SitStill(); //This is a function written for troubleshooting purposes
+  // PrintSerial(); //Uncomment this only for troubleshooting. It will slow down your robots reaction time during a battle!
+  //AccessoryLoop(); //A simple loop written to activate the accessory servos for display purposes.
   CheckSensors(); //Review all input sensors for fresh data
-//  if (EdgeSensed == true){ //If Edge is Detected
+    if (EdgeSensed == true){ //If Edge is Detected
 //    Buzz();
-  StayInRing(); // Move & reorient the robot away from ring edge
-//  }else if (ButtonSensed == true){  //Enemy Detected via Button sensor
-//    Buzz();
-//    Attack(); // Brief charge forward
-//  }else if (UltraSensed == true){  //Enemy Detected via Ultrasonic sensor
-//    Buzz();
-//        Persue(); // Reorient the robot with intent to attack
-//        }else 
-//    Search();  // Move in roving pattern seeking enemy
+     StayInRing(); // Move & reorient the robot away from ring edge
+//     } else if (ButtonSensed == true){  //Enemy Detected via Button sensor
+//     Buzz();
+//     Attack(); // Brief charge forward
+     } else if (UltraSensed == true){  //Enemy Detected via Ultrasonic sensor
+       Buzz();
+       Pursue(); // Reorient the robot with intent to attack
+     } else 
+       Search();  // Move in roving pattern seeking enemy
 //  }
 }
 
@@ -165,22 +164,22 @@ void loop(){
 //____ FUNCTIONS SECTION___________________________________________________________________________________________________
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//void UltraSense(){ // The following trigPin/echoPin cycle is used to determine the distance of the nearest object by bouncing soundwaves off of it. 
-// digitalWrite(trigPin, LOW); // Clears the trigPin 
-// delayMicroseconds(2); 
+void UltraSense(){ // The following trigPin/echoPin cycle is used to determine the distance of the nearest object by bouncing soundwaves off of it. 
+  digitalWrite(trigPin, LOW); // Clears the trigPin 
+  delayMicroseconds(2); 
 
-// digitalWrite(trigPin, HIGH); // Sets trigPin to HIGH for 10 micro seconds
-// delayMicroseconds(10); 
-// digitalWrite(trigPin, LOW); 
+  digitalWrite(trigPin, HIGH); // Sets trigPin to HIGH for 10 micro seconds
+  delayMicroseconds(10); 
+  digitalWrite(trigPin, LOW); 
 
-// Duration = pulseIn(echoPin, HIGH); // Reads the echoPin, returns the sound wave travel time in microseconds
+  Duration = pulseIn(echoPin, HIGH); // Reads the echoPin, returns the sound wave travel time in microseconds
  
-// Distance = (Duration/2)/29.1; //Calculate the distance in cm based on the speed of sound in air at STP.
+  Distance = (Duration/2)/29.1; //Calculate the distance in cm based on the speed of sound in air at STP.
  
-// if (Distance >= MaximumRange || Distance < MinimumRange){
-//   Distance = MaximumRange;
-// }
-//} 
+  if (Distance >= MaximumRange || Distance < MinimumRange){
+    Distance = MaximumRange;
+  }
+} 
  
 void CheckSensors(){ //Review all input sensors for fresh data and set the robot state
 
@@ -189,7 +188,7 @@ void CheckSensors(){ //Review all input sensors for fresh data and set the robot
   BackEdgeState = analogRead(EdgeBackPin);
   RightEdgeState = analogRead(EdgeRightPin);
   LeftEdgeState = analogRead(EdgeLeftPin);
-//  UltraSense();
+  UltraSense();
  
   if (BackEdgeState < EdgeSensitivity || RightEdgeState < EdgeSensitivity || LeftEdgeState < EdgeSensitivity){
     EdgeSensed = true; //Edge positively sensed
@@ -197,11 +196,11 @@ void CheckSensors(){ //Review all input sensors for fresh data and set the robot
         EdgeSensed = false;
       }
 
-//  if (Distance < MaximumRange){
-//    UltraSensed= true;  //Enemy Detected via Ultrasonic sensor
-//    } else {
-//        UltraSensed = false;
-//      }
+  if (Distance < MaximumRange){
+    UltraSensed= true;  //Enemy Detected via Ultrasonic sensor
+  } else {
+      UltraSensed = false;
+    }
   
 //  if (LeftButtonState == LOW || RightButtonState == LOW ){
 //    ButtonSensed = true;  //Enemy Detected via Button sensor
@@ -233,29 +232,29 @@ void StayInRing(){   // Move & reorient the robot away from ring edge
       //delay (random(10,550)); //Duration of this motion in milliseconds
     } else if (RightEdgeState < EdgeSensitivity){
         MoveBackwardRight();
-        delay (500); //Duration of this motion in milliseconds
+        delay (400); //Duration of this motion in milliseconds
         //delay (random(300,700)); //Duration of this motion in milliseconds
         RotateLeft(); 
         //delay (random(10,550)); //Duration of this motion in milliseconds
         delay (500); //Duration of this motion in milliseconds
     } else if (LeftEdgeState < EdgeSensitivity){
         MoveBackwardLeft();
-        delay (500); //Duration of this motion in milliseconds
+        delay (400); //Duration of this motion in milliseconds
         //delay (random(300,700)); //Duration of this motion in milliseconds
         RotateRight(); 
         delay (500); //Duration of this motion in milliseconds
     } 
     //if (BackEdgeState < EdgeSensitivity ) {
-      else {
-      MoveForward();
-      delay (125); //Duration of this motion in milliseconds
-      }
+    //  else {
+    MoveForwardSlow();
+    delay (100); //Duration of this motion in milliseconds 
+    //  }
 }
 
-//void Persue(){ // Reorient the robot with intent to attack
-//        MoveForwardFast();
-//    delay (100); //This is the motion duration
-//}
+void Pursue(){ // Reorient the robot with intent to attack
+        MoveForwardFast();
+    delay (100); //This is the motion duration
+}
 
 //void Attack(){// Brief charge forward
 //        if (RightButtonState == LOW && LeftButtonState == LOW) {
@@ -272,10 +271,10 @@ void StayInRing(){   // Move & reorient the robot away from ring edge
 
 //void Evade(){} // Reorient the robot with intent to escape
 
-//void Search(){ // Move in roving pattern seeking enemy
-//    MoveForwardSlow();
-//    delay (50); //Duration of this motion in milliseconds
-//  }
+void Search(){ // Move in roving pattern seeking enemy
+  MoveForwardSlow();
+  delay (50); //Duration of this motion in milliseconds
+}
 
 
 void Countdown(){ //This pauses the robot for 5 seconds (5000 milliseconds) after it is turned on, per competition requirements. Then it beeps the 5 sec countdown. 
@@ -350,18 +349,18 @@ void MoveForward(){
   RightServo.write(90-15); // (<90 is forward for right motor). 90 sets servo speed to zero. (0 and 180 are the opposing extreme speeds) 
 }
 
-//void MoveForwardSlow(){
-//  LeftServo.write(90+5);  // (>90 is forward for left motor). 90 sets servo speed to zero. (0 and 180 are the opposing extreme speeds) 
-//  RightServo.write(90-5); // (<90 is forward for right motor). 90 sets servo speed to zero. (0 and 180 are the opposing extreme speeds) 
-//}
+void MoveForwardSlow(){
+  LeftServo.write(90+15);  // (>90 is forward for left motor). 90 sets servo speed to zero. (0 and 180 are the opposing extreme speeds) 
+  RightServo.write(90-15); // (<90 is forward for right motor). 90 sets servo speed to zero. (0 and 180 are the opposing extreme speeds) 
+} 
 
-//void MoveForwardFast(){
-//    LeftServo.write(90+10);  // (>90 is forward for left motor). 90 sets servo speed to zero. (0 and 180 are the opposing extreme speeds)
-//  RightServo.write(90-10); // (<90 is forward for right motor). 90 sets servo speed to zero. (0 and 180 are the opposing extreme speeds) 
-//}
+void MoveForwardFast(){
+  LeftServo.write(90+90);  // (>90 is forward for left motor). 90 sets servo speed to zero. (0 and 180 are the opposing extreme speeds)
+  RightServo.write(90-90); // (<90 is forward for right motor). 90 sets servo speed to zero. (0 and 180 are the opposing extreme speeds) 
+}
 
 void MoveRandom(){
-    LeftServo.write(random(0,180));  // (>90 is forward for left motor). 90 sets servo speed to zero. (0 and 180 are the opposing extreme speeds)
+  LeftServo.write(random(0,180));  // (>90 is forward for left motor). 90 sets servo speed to zero. (0 and 180 are the opposing extreme speeds)
   RightServo.write(random(0,180)); // (<90 is forward for right motor). 90 sets servo speed to zero. (0 and 180 are the opposing extreme speeds) 
 }
 
@@ -369,10 +368,10 @@ int PrintSerial()                        //This function prints all available da
 {
   Serial.print(millis()/1000);                // print the time in milliseconds since the program started
   Serial.print(',');                     // print a comma
-  Serial.print(LeftButtonState);         // print the status of the left button
-  Serial.print(',');                     // print a comma
-  Serial.print(RightButtonState);        // print the status of the right button
-  Serial.print(',');                     // print a comma
+//  Serial.print(LeftButtonState);         // print the status of the left button
+//  Serial.print(',');                     // print a comma
+//  Serial.print(RightButtonState);        // print the status of the right button
+//  Serial.print(',');                     // print a comma
   Serial.print(Distance);                // print the ultrasonic distance sensor output
   Serial.print(',');                     // print a comma 
   Serial.print(BackEdgeState);           // print the status of the back edge sensor

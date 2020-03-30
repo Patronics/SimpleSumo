@@ -159,20 +159,20 @@ void loop(){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void UltraSense(){ // The following trigPin/echoPin cycle is used to determine the distance of the nearest object by bouncing soundwaves off of it. 
- digitalWrite(trigPin, LOW); // Clears the trigPin 
- delayMicroseconds(2); 
+  digitalWrite(trigPin, LOW); // Clears the trigPin 
+  delayMicroseconds(2); 
 
- digitalWrite(trigPin, HIGH); // Sets trigPin to HIGH for 10 micro seconds
- delayMicroseconds(10); 
- digitalWrite(trigPin, LOW); 
+  digitalWrite(trigPin, HIGH); // Sets trigPin to HIGH for 10 micro seconds
+  delayMicroseconds(10); 
+  digitalWrite(trigPin, LOW); 
 
- Duration = pulseIn(echoPin, HIGH); // Reads the echoPin, returns the sound wave travel time in microseconds
+  Duration = pulseIn(echoPin, HIGH); // Reads the echoPin, returns the sound wave travel time in microseconds
  
- Distance = (Duration/2)/29.1; //Calculate the distance in cm based on the speed of sound in air at STP.
+  Distance = (Duration/2)/29.1; //Calculate the distance in cm based on the speed of sound in air at STP.
  
- if (Distance >= MaximumRange || Distance < MinimumRange){
-   Distance = MaximumRange;
- }
+  if (Distance >= MaximumRange || Distance < MinimumRange){
+    Distance = MaximumRange;
+  }
 } 
  
 void CheckSensors(){ //Review all input sensors for fresh data and set the robot state
@@ -210,7 +210,7 @@ void BuzzLong() {  //Increasing the duration of the buzz changes the volume dras
 void StayInRing(){   // Move & reorient the robot away from ring edge
   if (RightEdgeState < EdgeSensitivity && LeftEdgeState < EdgeSensitivity){
     MoveBackward();
-      delay (500); //Duration of this motion in milliseconds
+      delay (400); //Duration of this motion in milliseconds
       RotateRight();
       delay (500); //Duration of this motion in milliseconds
     } else if (RightEdgeState < EdgeSensitivity){
@@ -236,8 +236,8 @@ void Pursue(){ // Reorient the robot with intent to attack
 }
 
 void Search(){ // Move in roving pattern seeking enemy
-    MoveForwardSlow();
-    delay (50); //Duration of this motion in milliseconds
+  MoveForwardSlow();
+  delay (50); //Duration of this motion in milliseconds
 }
 
 void Countdown(){ //This pauses the robot for 5 seconds (5000 milliseconds) after it is turned on, per competition requirements. Then it beeps the 5 sec countdown. 
